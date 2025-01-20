@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Applicazione Chat</title>
+    <script src="paho-mqtt.js"></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <h1>Chat</h1>
+
+    <div>
+        <div>
+            
+        </div>
+        <form>
+            <label for="broker">Broker</label><br>
+            <input type="text" id="broker" name="broker" placeholder="Type your broker"></input><br>
+
+            <label for="topic">Topic</label><br>
+            <input type="text" id="topic" name="topic" placeholder="Type your topic"></input><br
+            
+            <label for="client">Client</label><br>
+            <input type="text" id="client" name="client" placeholder="Type your client"><br>
+
+            <input type="button" value="Connect" onclick=""><br><br>
+        </form>
+    </div>
+
+    <hr>
+
+    <div>
+        <form>
+            <label for="message">Messaggio</label><br>
+            <input type="message" id="message" name="message" placeholder="Messaggio"><br>
+
+            <label for="chat">Chatbox</label><br>
+            <textarea id="chat" name="chatbox" rows="4" cols="50"></textarea><br>
+
+            <input type="button" value="Chat" onclick="">
+        </form>
+    </div>
+
+</body>
+
+</html>
