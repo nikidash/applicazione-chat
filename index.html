@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Applicazione Chat</title>
-    <script src="paho-mqtt.js"></script>
+    <script src="paho-mqtt.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -19,7 +19,10 @@
         </div>
         <form>
             <label for="broker">Broker</label><br>
-            <input type="text" id="broker" name="broker" placeholder="Type your broker"></input><br>
+            <input type="text" id="broker" name="broker" placeholder="Type your broker"></input>
+            
+            <label for="port">Port</label>
+            <input type="text" id="port" name="port" placeholder="Type your port"></input><br>
 
             <label for="topic">Topic</label><br>
             <input type="text" id="topic" name="topic" placeholder="Type your topic"></input><br
@@ -27,7 +30,7 @@
             <label for="client">Client</label><br>
             <input type="text" id="client" name="client" placeholder="Type your client"><br>
 
-            <input type="button" value="Connect" onclick=""><br><br>
+            <input type="button" value="Connect" onclick="connessione(broker, port, topic, client)"><br><br>
         </form>
     </div>
 
@@ -41,7 +44,7 @@
             <label for="chat">Chatbox</label><br>
             <textarea id="chat" name="chatbox" rows="4" cols="50"></textarea><br>
 
-            <input type="button" value="Chat" onclick="">
+            <input type="button" value="Chat" onclick="sendMessage(message)">
         </form>
     </div>
 
