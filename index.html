@@ -14,20 +14,20 @@
     <h1>Chat</h1>
 
     <div>
-        <div>
-            
-        </div>
         <form>
             <label for="broker">Broker</label><br>
             <input type="text" id="broker" name="broker" placeholder="Type your broker"></input><br>
 
+            <label for="port">Port</label><br>
+            <input type="text" id="port" name="port" placeholder="Type the port"><br>
+
             <label for="topic">Topic</label><br>
-            <input type="text" id="topic" name="topic" placeholder="Type your topic"></input><br
+            <input type="text" id="topic" name="topic" placeholder="Type your topic"></input><br>
             
             <label for="client">Client</label><br>
             <input type="text" id="client" name="client" placeholder="Type your client"><br>
 
-            <input type="button" value="Connect" onclick=""><br><br>
+            <input type="button" value="Connect" onclick="onConnect()"><br><br>
         </form>
     </div>
 
@@ -36,12 +36,12 @@
     <div>
         <form>
             <label for="message">Messaggio</label><br>
-            <input type="message" id="message" name="message" placeholder="Messaggio"><br>
+            <input type="message" id="message" name="message" placeholder="Messaggio">
+            <input type="button" value="Chat" onclick="send()"><br>
 
-            <label for="chat">Chatbox</label><br>
-            <textarea id="chat" name="chatbox" rows="4" cols="50"></textarea><br>
+            <label for="chatbox" readonly>Chatbox</label><br>
+            <textarea id="chatbox" name="chatbox" rows="40" cols="50"></textarea><br>
 
-            <input type="button" value="Chat" onclick="">
         </form>
     </div>
 
