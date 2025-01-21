@@ -1,55 +1,85 @@
-// Create a client instance
-var client = new Paho.Client(document.getElementById("broker").value, Number(8080), document.getElementById("client").value);
-
-// set callback handlers
-client.onConnectionLost = onConnectionLost;
-client.onMessageArrived = onMessageArrived;
-
-// connect the client
-client.connect({ onSuccess: onConnect });
+var client = null;
+var clientName;
+var brokerName;
+var portNumber;
+var topicName;
 
 
 // called when the client connects
 function onConnect() {
   // Once a connection has been made, make a subscription
   console.log("onConnect");
-  client.subscribe(document.getElementById("topic").value);
-  console.log("Connesso a " + document.getElementById("broker").value + " come " + document.getElementById("client").value + " con topic " + document.getElementById("topic").value);
+  client.subscribe(topicName);
+  console.log("Connected to " + brokerName + ":" + portNumber + " as " + clientName + " on topic " + topicName);
+  document.getElementById("connectionStatus").innerText = "Connected to " + brokerName + ":" + portNumber + " as " + clientName + " on topic " + topicName;
 }
+
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
   if (responseObject.errorCode !== 0) {
     console.log("onConnectionLost:" + responseObject.errorMessage);
+    document.getElementById("connectionStatus").innerText = "Disconnected";
   }
 }
 
+
 // called when a message arrives
 function onMessageArrived(message) {
-  console.log("onMessageArrived:" + message.payloadString);
-
-  if (message.payloadString != "" && message.payloadString != '\n')
-    document.getElementById("chatbox").value += message.payloadString + '\n';
+  if (message.payloadString != "" && message.payloadString != '\n' && !message.payloadString.includes("Chonburi.Hospital")){
+    console.log("onMessageArrived:" + message.payloadString);
+    document.getElementById("chatbox").value = message.payloadString + '\n' + document.getElementById("chatbox").value;
+  }
 }
 
 
-//funzione per connettersi
-function connetti() {
-  client.disconnect();
-  client = new Paho.Client(document.getElementById("broker").value, Number(document.getElementById("port").value), document.getElementById("client").value);
+//function to send the message
+function send() {
+  msg = document.getElementById("message").value;
+  if (msg != "" && msg != '\n') {
+    message = new Paho.Message(clientName + " says: " + document.getElementById("message").value);
+    message.destinationName = topicName;
+    client.send(message);
+    document.getElementById("message").value = "";
+  }
+}
 
+
+//connect to specified broker and topic
+function connect() {
+  disconnect();
+  collectValues();
+
+  // Create a client instance
+  client = new Paho.Client(brokerName, portNumber, clientName);
+
+  // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
 
-  client.connect({ onSuccess: onConnect });
+  // connect the client
+  client.connect({ onSuccess: onConnect, cleanSession: true });
 }
 
-//funzione per mandare un messaggio
-function send() {
-  if (document.getElementById("message").value != "" && document.getElementById("message").value != '\n') {
-    message = new Paho.Message(document.getElementById("client").value + ": " + document.getElementById("message").value);
-    message.destinationName = document.getElementById("topic").value;
-    client.send(message);
-    document.getElementById("message").value = "";
+
+//clears the chat history
+function clearChat() {
+  document.getElementById("chatbox").value = "";
+}
+
+
+//updates the values of the global variables
+function collectValues() {
+  clientName = document.getElementById("client").value;
+  brokerName = document.getElementById("broker").value;
+  portNumber = Number(document.getElementById("port").value);
+  topicName = document.getElementById("topic").value;
+}
+
+//disconnects from current broker and topic
+function disconnect() {
+  if (client && client.isConnected()) {
+    client.disconnect();
+    document.getElementById("connectionStatus").innerText = "Disconnected";
   }
 }
