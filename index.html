@@ -24,7 +24,7 @@
             <label for="topic">Topic</label><br>
             <input type="text" id="topic" name="topic" placeholder="Type your topic"></input><br>
 
-            <label for="client">Client</label><br>
+            <label for="client">Client name</label><br>
             <input type="text" id="client" name="client" placeholder="Type your client"><br>
 
             <input type="button" value="Connect" onclick="connect()">
@@ -38,13 +38,16 @@
     <div>
         <form>
             <label for="message">Message</label><br>
-            <input type="message" id="message" name="message" placeholder="Messaggio">
+            <input type="message" id="message" name="message" placeholder="Message">
             <input type="button" value="Chat" onclick="send()"><br><br>
 
             <label for="chatbox">Chatbox</label><br>
-            <textarea id="chatbox" name="chatbox" rows="20" cols="100" disabled></textarea><br>
+            <textarea class="preventResize" id="chatbox" name="chatbox" rows="20" cols="100" disabled></textarea><br>
 
-            <input type="button" value="Clear chat history" onclick="clearChat()">
+            <input type="button" value="Clear chat history" onclick="clearChat()"><br><br>
+
+            <label for="filterBox">Content to filter out</label><br>
+            <textarea id="filterBox" class="preventResize" name="filterBox" rows="5" cols="100"></textarea><br>
 
         </form>
     </div>

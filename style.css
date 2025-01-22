@@ -1,3 +1,3 @@
-  #chatbox {
+  .preventResize {
     resize: none;             /* Prevent resizing */
   }
